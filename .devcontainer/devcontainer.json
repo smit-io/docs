@@ -1,0 +1,37 @@
+{
+  "name": "Hugo + Go (Non-root)",
+  "image": "docker.io/hugomods/hugo:debian-dart-sass-go-git-non-root",
+  "features": {
+    "ghcr.io/nils-geistmann/devcontainers-features/zsh": 
+    {
+      "ohMyZsh": true,
+      "powerlevel10k": true
+    },
+    "ghcr.io/devcontainers/features/common-utils": {
+      "userUid": 1000,
+      "userGid": 1000,
+      "username": "hugo"
+    },
+    "ghcr.io/devcontainers-extra/features/wget-apt-get": {
+      "wget": true,
+      "apt": true
+    }
+  },
+  // VSCode will mount the whole repo if it detects git, but the following two lines will let it know to only mount the current directory at /workspace in a dev container.
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [1313],
+  "remoteUser": "hugo", // or the default non-root user set by the image
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "davidanson.vscode-markdownlint"
+      ],
+      "settings": {
+        "terminal.integrad.shell.linux": "/bin/zsh"
+      }
+    }
+  }
+  // "postCreateCommand": "git config --global oh-my-zsh.disable_auto_update true",
+  // "postCreateCommand": "\"$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/v1.2.1/zsh-in-docker.sh)\" -t powerlevel10k"
+}
