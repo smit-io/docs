@@ -1,0 +1,6 @@
+[submodule "smitchoksi.com/public"]
+	path = smitchoksi.com/public
+	url = git@github.com:smit-io/smit-io.github.io.git
+[submodule "smitchoksi.com/themes/hextra"]
+	path = smitchoksi.com/themes/hextra
+	url = git@github.com:smit-io/hextra.git
