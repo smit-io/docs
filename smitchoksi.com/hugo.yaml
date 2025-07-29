@@ -2,6 +2,7 @@ baseURL: https://smitchoksi.com/
 languageCode: en-us
 title: Smit Choksi
 theme: hextra
+enableInlineShortcodes: true
 
 menu:
   main:

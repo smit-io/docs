@@ -4,7 +4,7 @@ weight: 1
 tags:
   - Docs
   - Guide
-next: /guide
+next: /restic
 prev: /
 ---
 
@@ -37,7 +37,7 @@ cp ~/.p10k.zsh ~/.p10k.zsh.backup
 
 mv ~/.zshrc ~/dotfiles/zsh
 mv ~/.tmux.conf ~/dotfiles/tmux
-mv ~/.p10k.conf ~/p10k/.p10k.conf
+mv ~/.p10k.conf ~/p10k
 
 cd ~/dotfiles
 
@@ -56,6 +56,10 @@ git init
 git add .
 git commit -m "Added dot files with stow"
 ```
+
+## Step By Step Guide
+
+---
 
 {{% steps %}}
 
@@ -101,13 +105,13 @@ Do this process for all the dot files that you want to manage.
 
 ```shell
 cp ~/.tmux.conf ~/.tmux.conf.backup
-mv ~/.tmux.conf ~/dotfiles/tmux/.tmux.conf
+mv ~/.tmux.conf ~/dotfiles/tmux
 
 cp ~/.p10k.zsh ~/.p10k.zsh.backup
-mv ~/.p10k.zsh ~/dotfiles/p10k/.p10k.zsh
+mv ~/.p10k.zsh ~/dotfiles/p10k
 
 cp ~/.tmux.conf ~/.tmux.conf.backup
-mv ~/.tmux.conf ~/dotfiles/tmux/tmux.conf
+mv ~/.tmux.conf ~/dotfiles/tmux
 ```
 
 ### Directory structure of `~/dotfiles`
@@ -126,6 +130,7 @@ The directory structure should look something like this. There is a file called 
             {{< filetree/file name=".p10k.zsh" >}}
         {{< /filetree/folder >}}
     {{< filetree/file name=".stow-local-ignore" >}}
+    {{< filetree/file name=".stow-global-ignore" >}}
     {{< /filetree/folder >}}
 {{< /filetree/container >}}
 
@@ -150,6 +155,10 @@ git init
 ```
 
 ### Add files and directories to `.stow-local-ignore` and `.stow-global-ignore`
+
+{{< callout emoji="❓" >}}
+  Add any files or directories that you want to ignore in the `.stow-local-ignore` and `.stow-global-ignore` files. For example, you can add `.git` to `.stow-local-ignore` so that stow ignores the git directory.
+{{< /callout >}}
 
 `.stow-local-ignore` file is like a `.gitignore` file for stow. `.stow-local-ignore` ignores per package (directory) and `.stow-global-ignore` ignores files and directories globally.
 

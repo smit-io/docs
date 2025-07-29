@@ -1,7 +1,7 @@
 ---
 title: Restore Files with Restic
 weight: 4
-prev: /docs/restic/snapshots
+prev: /restic/snapshots
 ---
 
 ## Restore Files with Restic

@@ -1,13 +1,15 @@
 ---
 title: Restic Installation
 weight: 1
-prev: /docs/restic
-next: /docs/restic/backingup
+prev: /restic
+next: /restic/backingup
 ---
 
 ## Install Restic on Ubuntu
 
 {{% steps %}}
+
+Before using restic, it must be installed and updated. As many times the binary provided by the package manager is not the latest version. And since restic is a fast-moving project, it is recommended to always use the latest version.
 
 ### Install Restic
 
