@@ -25,7 +25,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "davidanson.vscode-markdownlint"
+        "davidanson.vscode-markdownlint",
+        "budparr.language-hugo-vscode",
+        "fivethree.vscode-hugo-snippets"
       ],
       "settings": {
         "terminal.integrad.shell.linux": "/bin/zsh"
