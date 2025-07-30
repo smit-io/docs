@@ -41,18 +41,20 @@ params:
     # light | dark | system
     default: system
     displayToggle: true
+  displayUpdatedDate: true
+  dateFormat: "January 2, 2006"
   navbar:
     displayTitle: true
     displayLogo: true
     logo:
       path: images/logo.svg
-      dark: images/logo-dark.svg
+      dark: images/logo.svg
       link: /
       width: 40
       height: 20
   editURL:
     enable: true
-    base: "https://github.com/your-username/your-repo/edit/main"
+    base: "https://github.com/smit-io/docs/edit/main"
   page:
     width: wide
   search:

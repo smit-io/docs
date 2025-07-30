@@ -4,6 +4,7 @@ title: Introduction
 cascade:
   type: docs
 next: /dotfiles
+breadcrumbs: false
 ---
 
 Knowledge base for setting up a new computer, taking notes or just refreshing knowledge.
