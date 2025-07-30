@@ -1,45 +1,66 @@
 ---
-linkTitle: "Documentation"
-title: Introduction
-cascade:
-  type: docs
-next: /dotfiles
+title: Hextra Theme
+layout: hextra-home
 ---
 
-Knowledge base for setting up a new computer, taking notes or just refreshing knowledge.
 
-<!--more-->
+<div class="hx:mt-6 hx:mb-6">
+{{< hextra/hero-headline >}}
+  Personal knowledgebase with&nbsp;<br class="hx:sm:block hx:hidden" />docs, projects, blogs and more
+{{< /hextra/hero-headline >}}
+</div>
 
-## Get Started
+<div class="hx:mb-6 flex">
+{{< hextra/hero-button text="Docs" link="docs" >}}
+</div>
 
-Pick any subject to start from the left pane.
 
-## Theme - Hextra
+<div class="hx:mt-6"></div>
 
-Hextra is a modern, fast and batteries-included [Hugo][hugo] theme built with [Tailwind CSS][tailwind-css].
-Designed for building beautiful websites for documentation, blogs, and websites, it provides out-of-the-box features and flexibility to meet various requirements.
-
-## Hextra Theme Features
-
-- **Full-text Search** - Built-in offline full-text search powered by [FlexSearch][flex-search], no additional configuration required.
-- **Battery-included** - Markdown, syntax highlighting, LaTeX math formulae, diagrams and Shortcodes elements to enhance your content. Table of contents, breadcrumbs, pagination, sidebar navigation and more are all automatically generated.
-- **Multi-language and SEO Ready** - Multi-language sites made easy with Hugo's multilingual mode. Out-of-the-box support is included for SEO tags, Open Graph, and Twitter Cards.
-
-## Questions or Feedback?
-
-{{< callout emoji="❓" >}}
-  The theme used is called Hextra and it is still in active development.
-  Have a question or feedback? Feel free to [open an issue](https://github.com/imfing/hextra/issues)!
-{{< /callout >}}
-
-## Next
-
-Dive right into the following section to get started:
-
-{{< cards >}}
-  {{< card link="dotfiles" title="Dotfiles" icon="document-text" subtitle="Learn how to manage dot files for Ubuntu." >}}
-{{< /cards >}}
-
-[hugo]: https://gohugo.io/
-[flex-search]: https://github.com/nextapps-de/flexsearch
-[tailwind-css]: https://tailwindcss.com/
+{{< hextra/feature-grid >}}
+  {{< hextra/feature-card
+    title="Fast and Full-featured"
+    subtitle="Simple and easy to use, yet powerful and feature-rich."
+    class="hx:aspect-auto hx:md:aspect-[1.1/1] hx:max-md:min-h-[340px]"
+    image="images/hextra-doc.webp"
+    imageClass="hx:top-[40%] hx:left-[24px] hx:w-[180%] hx:sm:w-[110%] hx:dark:opacity-80"
+    style="background: radial-gradient(ellipse at 50% 80%,rgba(194,97,254,0.15),hsla(0,0%,100%,0));"
+  >}}
+  {{< hextra/feature-card
+    title="Markdown is All You Need"
+    subtitle="Compose with just Markdown. Enrich with Shortcode components."
+    class="hx:aspect-auto hx:md:aspect-[1.1/1] hx:max-lg:min-h-[340px]"
+    image="images/hextra-markdown.webp"
+    imageClass="hx:top-[40%] hx:left-[36px] hx:w-[180%] hx:sm:w-[110%] hx:dark:opacity-80"
+    style="background: radial-gradient(ellipse at 50% 80%,rgba(142,53,74,0.15),hsla(0,0%,100%,0));"
+  >}}
+  {{< hextra/feature-card
+    title="Full Text Search"
+    subtitle="Built-in full text search with FlexSearch, no extra setup required."
+    class="hx:aspect-auto hx:md:aspect-[1.1/1] hx:max-md:min-h-[340px]"
+    image="images/hextra-search.webp"
+    imageClass="hx:top-[40%] hx:left-[36px] hx:w-[110%] hx:sm:w-[110%] hx:dark:opacity-80"
+    style="background: radial-gradient(ellipse at 50% 80%,rgba(221,210,59,0.15),hsla(0,0%,100%,0));"
+  >}}
+  {{< hextra/feature-card
+    title="Lightweight as a Feather"
+    subtitle="No dependency or Node.js is needed to use Hextra. Powered by Hugo, one of *the fastest* static site generators, building your site in just seconds with a single binary."
+  >}}
+  {{< hextra/feature-card
+    title="Responsive with Dark Mode Included"
+    subtitle="Looks great on different screen sizes. Built-in dark mode support, with auto-switching based on user's system preference."
+  >}}
+  {{< hextra/feature-card
+    title="Build and Host for Free"
+    subtitle="Build with GitHub Actions, and host for free on GitHub Pages. Alternatively it can be hosted on any static hosting service."
+  >}}
+  {{< hextra/feature-card
+    title="Multi-Language Made Easy"
+    subtitle="Create multi-language pages by just adding locales suffix to the Markdown file. Adding i18n support to your site is intuitive."
+  >}}
+  {{< hextra/feature-card
+    title="And Much More..."
+    icon="sparkles"
+    subtitle="Syntax highlighting / Table of contents / SEO / RSS / LaTeX / Mermaid / Customizable / and more..."
+  >}}
+{{< /hextra/feature-grid >}}

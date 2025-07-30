@@ -1,5 +1,5 @@
 {
-  "name": "Hugo + Go (Non-root)",
+  "name": "smitchoksi.com - Hugo + Go (Non-root)",
   "image": "docker.io/hugomods/hugo:debian-dart-sass-go-git-non-root",
   "features": {
     "ghcr.io/nils-geistmann/devcontainers-features/zsh": 
@@ -27,7 +27,15 @@
       "extensions": [
         "davidanson.vscode-markdownlint",
         "budparr.language-hugo-vscode",
-        "fivethree.vscode-hugo-snippets"
+        "fivethree.vscode-hugo-snippets",
+        "bierner.markdown-mermaid",
+        "darkriszty.markdown-table-prettify",
+        "DavidAnson.vscode-markdownlint",
+        "shd101wyy.markdown-preview-enhanced",
+        "yzhang.markdown-all-in-one",
+        "bierner.markdown-footnotes",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        "TakumiI.markdowntable"
       ],
       "settings": {
         "terminal.integrad.shell.linux": "/bin/zsh"
