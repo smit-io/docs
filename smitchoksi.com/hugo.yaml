@@ -4,7 +4,7 @@ title: Smit Choksi
 theme: hextra
 enableInlineShortcodes: true
 enableInlineShortcodesInMarkdown: true
-# cleanDestinationDir: true
+# cleanDestinationDir: true # This preserves hidden directories like .git but not .git file, so it gets deleted if used as a submodule
 
 menu:
   main:
