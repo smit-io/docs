@@ -4,8 +4,8 @@ weight: 1
 tags:
   - Docs
   - Guide
-next: /restic
-prev: /
+next: /docs/restic
+prev: /docs
 ---
 
 ## Managing dot files using GNU stow

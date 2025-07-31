@@ -1,9 +1,9 @@
 ---
-linkTitle: "Documentation"
+linkTitle: "Docs"
 title: Introduction
 cascade:
   type: docs
-next: /dotfiles
+next: /docs/dotfiles
 breadcrumbs: false
 ---
 

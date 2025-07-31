@@ -1,8 +1,8 @@
 ---
 title: Backing Up With Restic
 weight: 2
-prev: /restic/installation
-next: /restic/snapshots
+prev: /docs/restic/installation
+next: /docs/restic/snapshots
 ---
 
 {{< callout type="info" >}}

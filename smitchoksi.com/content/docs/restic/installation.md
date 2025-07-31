@@ -1,8 +1,8 @@
 ---
 title: Restic Installation
 weight: 1
-prev: /restic
-next: /restic/backingup
+prev: /docs/restic
+next: /docs/restic/backingup
 ---
 
 ## Install Restic on Ubuntu

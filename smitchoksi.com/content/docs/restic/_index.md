@@ -1,8 +1,8 @@
 ---
 title: Restic Backups
 weight: 2
-prev: /dotfiles
-next: /restic/installation
+prev: /docs/dotfiles
+next: /docs/restic/installation
 sidebar:
   open: true
 ---

@@ -1,8 +1,8 @@
 ---
 title: Snapshots
 weight: 3
-prev: /restic/backingup
-next: /restic/restore
+prev: /docs/restic/backingup
+next: /docs/restic/restore
 ---
 
 ## Browse the snapshots of the repository
