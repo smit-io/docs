@@ -1,0 +1,137 @@
+/* Nextra-style code block base styles with Fira Code font */
+.hextra-code-block {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.dark .hextra-code-block {
+  background-color: var(--x-color-black);
+  border-color: var(--x-color-neutral-700);
+}
+
+.hextra-code-block pre {
+  margin: 0;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #24292e;
+  overflow-x: auto;
+  white-space: pre;
+  word-wrap: normal;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-variant-ligatures: contextual;
+}
+
+.dark .hextra-code-block pre {
+  color: #c9d1d9;
+}
+
+.hextra-code-block .filename {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 8px 16px;
+  background: #f1f3f4;
+  border-bottom: 1px solid #e1e4e8;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: #586069;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dark .hextra-code-block .filename {
+  background-color: var(--x-color-neutral-700);
+  border-bottom-color: var(--x-color-neutral-700);
+  color: #8b949e;
+}
+
+.hextra-code-block .filename + pre:not(.lntable pre) {
+  padding-top: 44px;
+}
+
+.hextra-code-block pre:not(.lntable pre) {
+  padding: 12px 16px;
+  margin: 0;
+}
+
+.hextra-code-block div:nth-of-type(2) pre {
+  padding-top: 44px;
+  padding-bottom: 12px;
+}
+
+/* Syntax highlighting overrides */
+.chroma {
+  background: transparent !important;
+}
+
+.chroma .lntable {
+  margin: 0;
+  display: block;
+  width: auto;
+  overflow: auto;
+  border-radius: 0;
+}
+
+.chroma .lntable pre {
+  padding: 16px;
+  background: transparent;
+  border: none;
+  margin: 0;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-feature-settings: 'liga' 1, 'calt' 1;
+  font-variant-ligatures: contextual;
+}
+
+.chroma .ln,
+.chroma .lnt:not(.hl > .lnt),
+.chroma .hl:not(.line) {
+  padding: 0 16px;
+  min-width: 3rem;
+  color: #6a737d;
+  font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  user-select: none;
+}
+
+.dark .chroma .ln,
+.dark .chroma .lnt:not(.hl > .lnt),
+.dark .chroma .hl:not(.line) {
+  color: var(--x-color-neutral-700);
+}
+
+.chroma .lntd {
+  padding: 0;
+  vertical-align: top;
+}
+
+.chroma .lntd:last-of-type {
+  width: 100%;
+}
+
+/* Line highlighting */
+.chroma .hl {
+  display: block;
+  width: 100%;
+  background: rgba(56, 139, 253, 0.1);
+}
+
+.dark .chroma .hl {
+  background: rgba(56, 139, 253, 0.15);
+} 
