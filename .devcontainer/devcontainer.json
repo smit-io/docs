@@ -17,7 +17,7 @@
       "apt": true
     },
     "ghcr.io/devcontainers/features/node:1": {
-      
+      "version": "22" // default is lts
     }
     
   },
