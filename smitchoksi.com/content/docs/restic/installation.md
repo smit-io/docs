@@ -19,7 +19,7 @@ sudo apt install restic
 
 ### Update Restic to Latest Version
 
-```shell {filename="test.sh"}
+```shell
 restic self-update
 ```
 
