@@ -15,7 +15,11 @@
     "ghcr.io/devcontainers-extra/features/wget-apt-get": {
       "wget": true,
       "apt": true
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22" // default is lts
     }
+    
   },
   // VSCode will mount the whole repo if it detects git, but the following two lines will let it know to only mount the current directory at /workspace in a dev container.
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
