@@ -56,7 +56,7 @@ params:
       height: 20
   editURL:
     enable: true
-    base: "https://github.com/smit-io/docs/edit/main"
+    base: "https://github.com/smit-io/docs/edit/main/smitchoksi.com/content"
   page:
     width: wide
   search:
@@ -71,6 +71,27 @@ params:
       enable: true
       # hover | always
       display: hover
+  fonts:
+    # Enable Google Fonts integration
+    enable: true
+    heading:
+      family: "Sora"
+      axes: "wght@100..800"
+      display: "swap"
+    body:
+      family: "Mozilla Text"
+      axes: "wght@200..700"
+      display: "swap"
+    code:
+      family: "Google Sans Code"
+      axes: "ital,wght@0,300;1,300"
+      display: "swap"
+    # Fallback fonts (used if Google Fonts fail to load)
+    fallbacks:
+      heading: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      body: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+      code: "ui-monospace, SFMono-Regular, 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace"
+
 services:
   googleAnalytics:
     ID: G-9D1XJVP185

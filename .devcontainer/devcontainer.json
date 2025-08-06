@@ -42,7 +42,7 @@
         "TakumiI.markdowntable"
       ],
       "settings": {
-        "terminal.integrad.shell.linux": "/bin/zsh"
+        "terminal.integrated.shell.linux": "/bin/zsh"
       }
     }
   }
