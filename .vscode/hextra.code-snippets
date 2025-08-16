@@ -15,4 +15,130 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+	"Alert": {
+		"scope": "markdown",
+		"prefix": "alert",
+		"body": [
+			"> [!${1|NOTE,TIP,IMPORTANT,WARNING,CAUTION|}]",
+			"> ${TM_SELECTED_TEXT}$0"
+		],
+		"description": "Hextra Alert Snippet"
+	},
+	"Callout": {
+		"scope": "markdown",
+		"prefix": "callout",
+		"body": [
+			"{{< callout type=\"${1|info,warning,error|}\" >}}",
+			"${TM_SELECTED_TEXT}$0",
+			"{{< /callout >}}"
+		],
+		"description": "Hextra Callout Snippet"
+	},
+	"Callout Emoji": {
+		"scope": "markdown",
+		"prefix": "callout-emoji",
+		"body": [
+			"{{< callout emoji=\"${2:emoji}\" >}}",
+			"${TM_SELECTED_TEXT}$0",
+			"{{< /callout >}}"
+		],
+		"description": "Hextra Callout with Emoji Snippet"
+	},
+	"Cards": {
+		"scope": "markdown",
+		"prefix": "cards",
+		"body": [
+			"{{< cards ${1: cols=\"1\"} >}}",
+			"  {{< card link=\"$0\" title=\"$2\" icon=\"$3\" >}}",
+			"{{< /cards >}}"
+		],
+		"description": "Insert a cards block"
+	},
+	"Card" : {
+		"scope": "markdown",
+		"prefix": "card",
+		"body": [
+			"{{< card link=\"$1\" title=\"$2\" icon=\"$3\" ${4: subtitle=\"\"} ${5: tag=\"\"} ${6:tagColor=\"\"}>}}",
+		],
+		"description": "Insert a card block"
+	},
+	"Card with Image": {
+		"scope": "markdown",
+		"prefix": "card-image",
+		"body": [
+			"{{< card link=\"$1\" title=\"$2\" image=\"$3\" ${4: subtitle=\"\"} ${5: method=\"\"} ${6:options=\"\"}>}}",
+		],
+		"description": "Insert a card block with image"
+	},
+	"Details": {
+		"scope": "markdown",
+		"prefix": "details",
+		"body": [
+			"{{% details title=\"$1\" closed=\"${2|true,false|}\" %}}",
+			"${TM_SELECTED_TEXT}$0",
+			"{{% /details %}}"
+		],
+		"description": "Hextra Details Snippet"
+	},
+	"Icon": {
+		"scope": "markdown",
+		"prefix": "icon",
+		"body": [
+			"{{< icon \"${0|github,codeberg,gitlab,bitbucket,hextra,hugo,hugo-full,jupyter,warning,one,cards,copy,hamburger-menu,markdown,folder-tree,card,academic-cap,adjustments,annotation,archive,arrow-circle-down,arrow-circle-left,arrow-circle-right,arrow-circle-up|}\">}}"
+		],
+		"description": "Hextra Icon Snippet"
+	},
+	"Steps" : {
+		"scope": "markdown",
+		"prefix": "steps",
+		"body": [
+			"{{% steps %}}",
+			"### ${TM_SELECTED_TEXT}$0",
+			"{{% /steps %}}"
+		],
+		"description": "Insert a steps block"
+	},
+	"Tabs Block": {
+		"scope": "markdown",
+		"prefix": "tabs block",
+		"body": [
+			"{{< tabs items=\"${1:tab1},${2:tab2}\" >}}",
+			"",
+			"{{< tab >}}",
+			"$3",
+			"{{< /tab >}}",
+			"{{< tab >}}",
+			" ",
+			"{{< /tab >}}",
+		],
+		"description": "Insert a tabs block"
+	},
+	"Tab": {
+		"scope": "markdown",
+		"prefix": "tab",
+		"body": [
+			"{{< tab >}}",
+			"$1",
+			"{{< /tab >}}"
+		],
+		"description": "Insert a tab block"
+	},
+	"Insert Fenced Code Block": {
+		"scope": "markdown",
+		"prefix": "fenced code block",
+		"body": [
+			"```${1|python,c,c++,c#,java,javascript,php,html,css,go,rust,typescript,markdown,sql,json,console,shell,bash|}",
+			"${TM_SELECTED_TEXT}$0",
+			"```"
+		],
+		"description": "Insert a fenced code block"
+	},
+	"Single Line Code Block": {
+		"scope": "markdown",
+		"prefix": "Single Line Code",
+		"body": [
+			"`${TM_SELECTED_TEXT}$0`"
+		],
+		"description": "Insert a single line code"
+	}
 }
