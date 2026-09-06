@@ -1,0 +1,58 @@
+name: publish
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-publish:
+    runs-on: ubuntu-latest
+    steps:
+      # .gitmodules uses SSH URLs; rewrite to https+PAT so submodule
+      # clone AND pushes work with one token on both GitHub and act.
+      - name: Configure git auth
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.PUBLISH_TOKEN }}@github.com/".insteadOf "git@github.com:"
+          git config --global user.name "publish-bot"
+          git config --global user.email "sgchoksi+publishbot@gmail.com"
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          token: ${{ secrets.PUBLISH_TOKEN }}
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: 'latest'
+          extended: true
+
+      # No --cleanDestinationDir: it would delete the .git file inside
+      # public/, breaking the submodule (see comment in hugo.yaml).
+      - name: Build site
+        run: hugo --minify -s smitchoksi.com
+
+      - name: Push public submodule
+        run: |
+          cd smitchoksi.com/public
+          git checkout main
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes in public/, skipping publish."
+            echo "PUBLISHED=false" >> "$GITHUB_ENV"
+          else
+            git commit -m "publish: build from docs@${GITHUB_SHA:-local}"
+            git push origin main
+            echo "PUBLISHED=true" >> "$GITHUB_ENV"
+          fi
+
+      # [skip ci] is mandatory: without it this push re-triggers the
+      # workflow in a loop when GitHub CI is enabled.
+      - name: Bump submodule SHA in parent
+        if: env.PUBLISHED == 'true'
+        run: |
+          git add smitchoksi.com/public
+          git commit -m "publish: bump public submodule [skip ci]"
+          git push origin HEAD:main
