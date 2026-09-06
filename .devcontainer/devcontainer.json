@@ -35,6 +35,13 @@
   // VSCode will mount the whole repo if it detects git, but the following two lines will let it know to only mount the current directory at /workspace in a dev container.
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
+  // Persist gh CLI auth across container rebuilds: ~/.config/gh lives in a
+  // named Docker volume, so `gh auth login` is needed only once ever.
+  "mounts": [
+    "source=gh-config-${devcontainerId},target=/home/hugo/.config/gh,type=volume"
+  ],
+  // Fresh named volumes are root-owned; hand them to the container user once.
+  "postCreateCommand": "sudo chown -R hugo:hugo /home/hugo/.config/gh",
   "forwardPorts": [1313],
   "remoteUser": "hugo", // or the default non-root user set by the image
   "customizations": {
