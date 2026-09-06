@@ -18,8 +18,19 @@
     },
     "ghcr.io/devcontainers/features/node:1": {
       "version": "22" // default is lts
+    },
+    // GitHub CLI — used by Makefile gh-ci-* targets and local-ci-run token injection.
+    // Run `gh auth login` once inside the container (host keyring auth does not carry over).
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    // act — run GitHub Actions workflows locally (Makefile local-ci-* targets)
+    "ghcr.io/dhoeric/features/act:1": {},
+    // Docker CLI wired to the HOST daemon via forwarded socket — act needs this
+    // to spawn job containers. No nested daemon.
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+    // make — for the repo Makefile
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "make"
     }
-    
   },
   // VSCode will mount the whole repo if it detects git, but the following two lines will let it know to only mount the current directory at /workspace in a dev container.
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
