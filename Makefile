@@ -12,12 +12,12 @@
 #     force-pushes the built site to the public site repo. Rehearse with
 #     `make local-ci-dry`.
 #   GITHUB CI (gh-ci-*)     -> the same workflow hosted on GitHub Actions.
-#     Costs credits, so it stays disabled; toggle with gh-ci-enable /
-#     gh-ci-disable (native GitHub workflow state — act ignores it, local
-#     runs always work). Hosted runs need a PUBLISH_TOKEN repo secret
-#     (PAT with read access to smit-io/docs + smit-io/hextra and write
-#     access to smit-io/smit-io.github.io):
-#     gh secret set PUBLISH_TOKEN
+#     ENABLED: push to main triggers a hosted publish (free on public
+#     repos). Toggle with gh-ci-enable / gh-ci-disable (native GitHub
+#     workflow state — act ignores it, local runs always work). Hosted
+#     runs use the PUBLISH_TOKEN repo secret (fine-grained PAT, Contents
+#     read/write on smit-io/docs + smit-io/hextra + smit-io.github.io).
+#     Full write-up: /docs/site-publishing on the site.
 
 WORKFLOW := publish.yml
 HUGO_IMG := hugomods/hugo:exts
@@ -39,7 +39,7 @@ help: ## Show this help
 	@echo "Local CI — act on this machine, free (host, needs act + gh + Docker):"
 	@grep -E '^local-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 	@echo
-	@echo "GitHub CI — hosted on Actions, costs credits (needs gh):"
+	@echo "GitHub CI — hosted on Actions, free on public repos (needs gh):"
 	@grep -E '^gh-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 	@echo
 	@echo "Misc:"
@@ -79,9 +79,9 @@ local-ci-dry: submodules ## Dry-run: list workflow steps without executing
 	@command -v docker >/dev/null && docker info >/dev/null 2>&1 || { echo "Docker not running — act needs it. Start Docker Desktop first."; exit 1; }
 	act push -n -W .github/workflows/$(WORKFLOW)
 
-# ---------- GitHub CI: hosted on Actions (costs credits, keep disabled) ----------
+# ---------- GitHub CI: hosted on Actions (enabled — publishes on push to main) ----------
 
-gh-ci-enable: ## Enable the GitHub-hosted workflow (starts costing credits on push)
+gh-ci-enable: ## Enable the GitHub-hosted workflow (publishes on push to main)
 	gh workflow enable $(WORKFLOW)
 
 gh-ci-disable: ## Disable the GitHub-hosted workflow (local CI still works)

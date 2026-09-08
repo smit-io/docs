@@ -3,6 +3,7 @@ title: Managing Multiple Gits and Github Accounts
 linkTitle: Multiple Git Profiles
 weight: 3
 prev: /docs/restic
+next: /docs/site-publishing
 sidebar:
   open: true
 ---

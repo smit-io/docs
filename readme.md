@@ -68,9 +68,14 @@ make docker-build   # build into smitchoksi.com/public/
 
 ## Publishing (CI)
 
-Free GitHub Actions credits ran out, so the pipeline is **local-first**: the same
-workflow (`.github/workflows/publish.yml`) runs on your machine via
-[`act`](https://github.com/nektos/act), and the hosted copy stays disabled.
+One workflow (`.github/workflows/publish.yml`), two ways to run it — both always
+available (Actions are free on public repos):
+
+- **Hosted (enabled)**: every push to `main` publishes automatically via GitHub
+  Actions, authenticated by the `PUBLISH_TOKEN` fine-grained-PAT secret.
+- **Local**: run the exact same workflow on your machine via
+  [`act`](https://github.com/nektos/act), authenticated with your `gh` CLI token —
+  no PAT, no secrets file.
 
 ```bash
 make local-ci-dry   # rehearse: list steps, execute nothing
@@ -79,20 +84,17 @@ make local-ci-run   # publish FOR REAL: build → force-push to the Pages repo
 
 The workflow: builds with Hugo → force-pushes `public/` as a single fresh commit
 to `smit-io/smit-io.github.io` (no history accumulates, nothing is pushed back
-to this repo). Local runs authenticate with your `gh` CLI token — no PAT, no
-secrets file.
+to this repo). Full write-up on the site:
+[/docs/site-publishing](https://smitchoksi.com/docs/site-publishing/).
 
 <details>
-<summary><b>Hosted CI (GitHub Actions) — off by default</b></summary>
-
-Kept disabled to spend zero credits. To enable, follow [`todo.md`](todo.md):
-set a `PUBLISH_TOKEN` repo secret, then
+<summary><b>Hosted CI controls</b></summary>
 
 ```bash
-make gh-ci-enable   # push to main + manual dispatch now trigger hosted runs
 make gh-ci-status   # workflow state + recent runs
 make gh-ci-run      # trigger a hosted run manually
-make gh-ci-disable  # back to local-only
+make gh-ci-disable  # back to local-only (secret stays)
+make gh-ci-enable   # re-enable push-to-main publishing
 ```
 
 </details>
@@ -111,7 +113,7 @@ Everything goes through `make` (or run `make help` in the terminal):
 | `make docker-build` | 💻 host | Same build, via throwaway container |
 | `make local-ci-dry` | ⚡ local CI | Rehearse the publish workflow with `act -n` — lists steps, executes nothing |
 | `make local-ci-run` | ⚡ local CI | **Publishes for real**: runs `publish.yml` via act — builds, force-pushes the site to the Pages repo. Auth = your `gh` token |
-| `make gh-ci-enable` | ☁️ GitHub CI | Enable the hosted workflow — pushes to `main` start costing credits |
+| `make gh-ci-enable` | ☁️ GitHub CI | Enable the hosted workflow — pushes to `main` publish automatically |
 | `make gh-ci-disable` | ☁️ GitHub CI | Disable the hosted workflow — local CI keeps working |
 | `make gh-ci-status` | ☁️ GitHub CI | Show workflow enabled/disabled state + last 5 hosted runs |
 | `make gh-ci-run` | ☁️ GitHub CI | Trigger one hosted run manually (needs workflow enabled + `PUBLISH_TOKEN` secret) |

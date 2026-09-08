@@ -1,20 +1,27 @@
 # TODO
 
-## Enable hosted GitHub CI (when credits available)
+## Hosted GitHub CI — DONE (2026-09-08)
 
-Local CI (`make local-ci-run`) needs none of this — it uses gh CLI auth.
+Enabled: push to `main` triggers a hosted publish run; `make local-ci-run`
+still works anytime, independently.
 
-- [ ] Create fine-grained PAT (github.com → Settings → Developer settings → Fine-grained tokens):
-  - Contents **read/write** on `smit-io/docs`
-  - Contents **read/write** on `smit-io/smit-io.github.io`
-  - Contents **read** on `smit-io/hextra`
-- [ ] Add it as repo secret: `gh secret set PUBLISH_TOKEN --repo smit-io/docs`
-- [ ] Enable the workflow: `make gh-ci-enable`
-- [ ] Test with a manual run: `make gh-ci-run`, watch with `gh run watch`
-- [ ] Verify: new commit in `smit-io.github.io` + `publish: bump public submodule [skip ci]` commit in `docs`
-- [ ] If keeping it off after the test: `make gh-ci-disable`
+Setup that was done (repeat only if the PAT expires or is revoked):
+
+- [x] Fine-grained PAT (github.com → Settings → Developer settings → Fine-grained tokens):
+  - Repository access: `smit-io/docs`, `smit-io/hextra`, `smit-io/smit-io.github.io`
+  - Repository permissions: Contents **read/write**
+- [x] `gh secret set PUBLISH_TOKEN --repo smit-io/docs`
+- [x] `make gh-ci-enable`
 
 Notes:
-- Push to `main` triggers a hosted run while enabled; `workflow_dispatch` always available.
-- The workflow's parent-bump commit carries `[skip ci]` so it never re-triggers itself.
-- Check state anytime: `make gh-ci-status`
+- Actions are free on public repos — no credit concern while `smit-io/docs` stays public.
+- Full write-up lives on the site: /docs/site-publishing (source:
+  `smitchoksi.com/content/docs/site-publishing/_index.md`).
+- Toggle anytime: `make gh-ci-disable` / `make gh-ci-enable`; check `make gh-ci-status`.
+
+## Later
+
+- [ ] Fix remaining Hugo deprecations in the theme fork (`languageCode` → `locale`,
+      `.Site.Data`, `.Language.LanguageDirection` warnings on hugo ≥0.158).
+- [ ] Decide on enabling the page context menu (`params.page.contextMenu.enable`
+      in `smitchoksi.com/hugo.yaml`, currently false).
