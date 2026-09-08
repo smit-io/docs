@@ -14,20 +14,21 @@ Built with [Hugo](https://gohugo.io) · themed with [Hextra](https://github.com/
 
 ## How it works
 
-This repo is the *source* of the website. The rendered site and the theme live in
-their own repos, pinned here as git submodules — every commit on `main` is a full
-snapshot of **content + theme + built output**.
+This repo is the *source* of the website. The theme lives in its own repo,
+pinned here as a git submodule — every commit on `main` is a full snapshot of
+**content + theme**. The built site is plain (gitignored) output that CI
+force-pushes to the Pages repo.
 
 ```mermaid
 flowchart LR
     subgraph docs["📦 smit-io/docs (this repo)"]
         C["content/<br/>hugo.yaml"]
         T["themes/hextra<br/>(submodule → smit-io/hextra)"]
-        P["public/<br/>(submodule → smit-io/smit-io.github.io)"]
+        P["public/<br/>(build output, gitignored)"]
     end
     C -->|hugo build| P
     T -->|hugo build| P
-    P -->|push| GH["🌐 GitHub Pages<br/>smitchoksi.com"]
+    P -->|force-push| GH["🌐 GitHub Pages<br/>smit-io/smit-io.github.io<br/>smitchoksi.com"]
 ```
 
 | Piece | Repo | Role |
@@ -41,7 +42,7 @@ flowchart LR
 ```bash
 git clone git@github.com:smit-io/docs.git
 cd docs
-make submodules     # pull theme + public submodules
+make submodules     # pull theme submodule
 ```
 
 Then pick your context:
@@ -73,12 +74,13 @@ workflow (`.github/workflows/publish.yml`) runs on your machine via
 
 ```bash
 make local-ci-dry   # rehearse: list steps, execute nothing
-make local-ci-run   # publish FOR REAL: build → push public → bump submodule SHA
+make local-ci-run   # publish FOR REAL: build → force-push to the Pages repo
 ```
 
-The workflow: builds with Hugo → commits the output in `public/` and pushes it →
-bumps the submodule pointer in this repo (`[skip ci]` guards against loops).
-Local runs authenticate with your `gh` CLI token — no PAT, no secrets file.
+The workflow: builds with Hugo → force-pushes `public/` as a single fresh commit
+to `smit-io/smit-io.github.io` (no history accumulates, nothing is pushed back
+to this repo). Local runs authenticate with your `gh` CLI token — no PAT, no
+secrets file.
 
 <details>
 <summary><b>Hosted CI (GitHub Actions) — off by default</b></summary>
@@ -102,13 +104,13 @@ Everything goes through `make` (or run `make help` in the terminal):
 | Command | Context | What it does |
 |---|---|---|
 | `make help` | anywhere | List all commands, grouped by context |
-| `make submodules` | anywhere | Init/update the theme + public submodules |
+| `make submodules` | anywhere | Init/update the theme submodule |
 | `make serve` | 🐳 devcontainer | Hugo dev server at `http://localhost:1313` (native hugo) |
 | `make build` | 🐳 devcontainer | Build the site into `smitchoksi.com/public/` (native hugo) |
 | `make docker-serve` | 💻 host | Same dev server, via throwaway `hugomods/hugo` container |
 | `make docker-build` | 💻 host | Same build, via throwaway container |
 | `make local-ci-dry` | ⚡ local CI | Rehearse the publish workflow with `act -n` — lists steps, executes nothing |
-| `make local-ci-run` | ⚡ local CI | **Publishes for real**: runs `publish.yml` via act — builds, pushes `public/`, bumps submodule SHA here. Auth = your `gh` token |
+| `make local-ci-run` | ⚡ local CI | **Publishes for real**: runs `publish.yml` via act — builds, force-pushes the site to the Pages repo. Auth = your `gh` token |
 | `make gh-ci-enable` | ☁️ GitHub CI | Enable the hosted workflow — pushes to `main` start costing credits |
 | `make gh-ci-disable` | ☁️ GitHub CI | Disable the hosted workflow — local CI keeps working |
 | `make gh-ci-status` | ☁️ GitHub CI | Show workflow enabled/disabled state + last 5 hosted runs |
@@ -157,16 +159,11 @@ the submodule SHA here, rebuild.
     ├── assets/css/       # custom.css overrides
     ├── static/           # logo, favicons, fonts
     ├── themes/hextra     # ⎇ submodule — theme fork
-    └── public/           # ⎇ submodule — built site (GitHub Pages)
+    └── public/           # build output (gitignored) — force-pushed to Pages by CI
 ```
 
 ## Notes & gotchas
 
-- **Never** build with `--cleanDestinationDir` — it deletes the `.git` file
-  inside `public/` and breaks the submodule (stale files are the accepted
-  trade-off).
-- Push order matters when publishing manually: submodule first, parent second —
-  otherwise `main` points at a commit that doesn't exist upstream.
 - The theme loads from `themes/hextra` only (no Hugo Modules) — intentional,
   the fork carries local patches.
 

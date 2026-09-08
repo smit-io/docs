@@ -8,14 +8,15 @@
 # CI contexts:
 #   LOCAL CI  (local-ci-*)  -> runs the workflow on your machine via act.
 #     Free, uses your gh CLI auth, needs Docker. This is the default way
-#     to publish. NOTE: `make local-ci-run` publishes FOR REAL — it pushes
-#     to both the public site repo and this repo. Rehearse with
+#     to publish. NOTE: `make local-ci-run` publishes FOR REAL — it
+#     force-pushes the built site to the public site repo. Rehearse with
 #     `make local-ci-dry`.
 #   GITHUB CI (gh-ci-*)     -> the same workflow hosted on GitHub Actions.
 #     Costs credits, so it stays disabled; toggle with gh-ci-enable /
 #     gh-ci-disable (native GitHub workflow state — act ignores it, local
 #     runs always work). Hosted runs need a PUBLISH_TOKEN repo secret
-#     (PAT with write access to smit-io/docs + smit-io/smit-io.github.io):
+#     (PAT with read access to smit-io/docs + smit-io/hextra and write
+#     access to smit-io/smit-io.github.io):
 #     gh secret set PUBLISH_TOKEN
 
 WORKFLOW := publish.yml
@@ -44,7 +45,7 @@ help: ## Show this help
 	@echo "Misc:"
 	@grep -E '^submodules:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
 
-submodules: ## Init/update theme + public submodules
+submodules: ## Init/update theme submodule
 	git submodule update --init --recursive
 
 # ---------- Inside devcontainer (hugo on PATH) ----------
