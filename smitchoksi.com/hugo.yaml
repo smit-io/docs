@@ -6,6 +6,13 @@ enableInlineShortcodes: true
 enableInlineShortcodesInMarkdown: true
 cleanDestinationDir: true
 
+# Markdown/llms output formats — required by the page context menu below
+# ("Copy page" / "Copy as Markdown" need a markdown output per page).
+outputs:
+  home: [html, llms]
+  page: [html, markdown]
+  section: [html, rss, markdown]
+
 menu:
   main:
     - name: Docs
@@ -59,6 +66,18 @@ params:
     base: "https://github.com/smit-io/docs/edit/main/smitchoksi.com/content"
   page:
     width: wide
+    # Page context menu: "Copy page", "Copy as Markdown", "View as Markdown"
+    # plus the custom links below. Flip enable to true to show it (also
+    # needs the outputs: block at the top of this file).
+    contextMenu:
+      enable: false
+      links:
+        - name: Open in ChatGPT
+          icon: chatgpt
+          url: "https://chatgpt.com/?hints=search&q=I%27m+looking+at+this+documentation%3A+{url}%0AHelp+me+understand+how+to+use+it."
+        - name: Open in Claude
+          icon: claude
+          url: "https://claude.ai/new?q=I%27m+looking+at+this+documentation%3A+{url}%0AHelp+me+understand+how+to+use+it."
   search:
     enable: true
     type: flexsearch
