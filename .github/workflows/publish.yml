@@ -24,10 +24,12 @@ jobs:
           submodules: recursive
           token: ${{ secrets.PUBLISH_TOKEN }}
 
+      # Pinned: 'latest' (0.165.x) removed .Site.Author, which the theme's
+      # list.rss.xml still uses. Bump together with a theme fix.
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: 'latest'
+          hugo-version: '0.154.5'
           extended: true
 
       - name: Build site
