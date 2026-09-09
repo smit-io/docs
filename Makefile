@@ -22,28 +22,30 @@
 WORKFLOW := publish.yml
 HUGO_IMG := hugomods/hugo:exts
 SITE_DIR := smitchoksi.com
+# drafts build to their own dir so a draft preview can never be published from public/
+DRAFT_DIR := public-drafts
 
 .DEFAULT_GOAL := help
 
-.PHONY: help submodules serve build docker-serve docker-build \
+.PHONY: help submodules serve build build-drafts docker-serve docker-build docker-build-drafts \
         local-ci-run local-ci-dry \
         gh-ci-enable gh-ci-disable gh-ci-status gh-ci-run
 
 help: ## Show this help
 	@echo "Inside devcontainer (hugo on PATH):"
-	@grep -E '^(serve|build):.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^(serve|build|build-drafts):.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	@echo
 	@echo "Outside devcontainer (host, needs Docker):"
-	@grep -E '^(docker-serve|docker-build):.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^(docker-serve|docker-build|docker-build-drafts):.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	@echo
 	@echo "Local CI — act on this machine, free (host, needs act + gh + Docker):"
-	@grep -E '^local-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^local-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	@echo
 	@echo "GitHub CI — hosted on Actions, free on public repos (needs gh):"
-	@grep -E '^gh-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^gh-ci-[a-z]+:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 	@echo
 	@echo "Misc:"
-	@grep -E '^submodules:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-14s\033[0m %s\n", $$1, $$2}'
+	@grep -E '^submodules:.*?## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
 submodules: ## Init/update theme submodule
 	git submodule update --init --recursive
@@ -58,6 +60,10 @@ build: submodules ## Build site into smitchoksi.com/public (devcontainer)
 	@command -v hugo >/dev/null || { echo "hugo not found — you are outside the devcontainer. Use 'make docker-build' instead."; exit 1; }
 	cd $(SITE_DIR) && hugo --minify
 
+build-drafts: submodules ## Build with drafts/future/expired into smitchoksi.com/public-drafts (devcontainer)
+	@command -v hugo >/dev/null || { echo "hugo not found — you are outside the devcontainer. Use 'make docker-build-drafts' instead."; exit 1; }
+	cd $(SITE_DIR) && hugo --minify -D -E -F -d $(DRAFT_DIR)
+
 # ---------- Outside devcontainer (host, throwaway Docker container) ----------
 
 docker-serve: submodules ## Hugo dev server via Docker at http://localhost:1313 (host)
@@ -67,6 +73,10 @@ docker-serve: submodules ## Hugo dev server via Docker at http://localhost:1313 
 docker-build: submodules ## Build site via Docker into smitchoksi.com/public (host)
 	@command -v docker >/dev/null && docker info >/dev/null 2>&1 || { echo "Docker not running. Inside the devcontainer? Use 'make build' instead."; exit 1; }
 	docker run --rm -v $(PWD)/$(SITE_DIR):/src $(HUGO_IMG) hugo --minify
+
+docker-build-drafts: submodules ## Build with drafts/future/expired via Docker into smitchoksi.com/public-drafts (host)
+	@command -v docker >/dev/null && docker info >/dev/null 2>&1 || { echo "Docker not running. Inside the devcontainer? Use 'make build-drafts' instead."; exit 1; }
+	docker run --rm -v $(PWD)/$(SITE_DIR):/src $(HUGO_IMG) hugo --minify -D -E -F -d $(DRAFT_DIR)
 
 # ---------- Local CI: act on this machine (free, default publish path) ----------
 
