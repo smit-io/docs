@@ -32,6 +32,13 @@
       "packages": "make"
     }
   },
+  // Image-based dev container: the CLI runs `docker run` with no --name, so
+  // Docker assigns a random `adjective_scientist` name. Pin it so the
+  // container is identifiable in Docker Desktop / `docker ps`.
+  // Note: a stopped container holding this name blocks a rebuild — `docker rm
+  // docs-devcontainer` first if that happens.
+  "runArgs": ["--name", "docs-devcontainer"],
+
   // VSCode will mount the whole repo if it detects git, but the following two lines will let it know to only mount the current directory at /workspace in a dev container.
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
   "workspaceFolder": "/workspace",
@@ -60,7 +67,11 @@
         "TakumiI.markdowntable"
       ],
       "settings": {
-        "terminal.integrated.shell.linux": "/bin/zsh"
+        "terminal.integrated.shell.linux": "/bin/zsh",
+        // The Copilot language server and agent host are built into VS Code
+        // Server (not extensions from the list above), and idle at ~460 MB
+        // combined inside the container. This switches both off.
+        "chat.disableAIFeatures": true
       }
     }
   }
