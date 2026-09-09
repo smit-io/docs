@@ -15,32 +15,32 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
-	"Alert": {
+	"Hextra: alert": {
 		"scope": "markdown",
-		"prefix": "alert",
+		"prefix": "hxalert",
 		"body": [
 			"> [!${1|NOTE,TIP,IMPORTANT,WARNING,CAUTION|}]",
 			"> ${TM_SELECTED_TEXT}$0"
 		],
-		"description": "Hextra Alert Snippet"
+		"description": "GitHub-style alert blockquote. Rendered by layouts/_markup/render-blockquote-alert.html; not a shortcode."
 	},
-	"Insert Fenced Code Block": {
+	"Hextra: code block (plain)": {
 		"scope": "markdown",
-		"prefix": "fenced code block",
+		"prefix": "hxcode-plain",
 		"body": [
 			"```${1|python,c,c++,c#,java,javascript,php,html,css,go,rust,typescript,markdown,sql,json,console,shell,bash|}",
 			"${TM_SELECTED_TEXT}$0",
 			"```"
 		],
-		"description": "Insert a fenced code block"
+		"description": "Fenced code block with no attributes. Use hxcode for a filename, hxcode-lines for line numbers."
 	},
-	"Single Line Code Block": {
+	"Hextra: inline code": {
 		"scope": "markdown",
-		"prefix": "Single Line Code",
+		"prefix": "hxcode-inline",
 		"body": [
 			"`${TM_SELECTED_TEXT}$0`"
 		],
-		"description": "Insert a single line code"
+		"description": "Inline code span. Wraps the current selection."
 	},
 
 	// ---- Hextra fork snippets (synced from themes/hextra/.vscode/hextra.code-snippets) ----
