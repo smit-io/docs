@@ -13,7 +13,8 @@
 #     `make local-ci-dry`.
 #   GITHUB CI (gh-ci-*)     -> the same workflow hosted on GitHub Actions.
 #     ENABLED: push to main triggers a hosted publish (free on public
-#     repos). Toggle with gh-ci-enable / gh-ci-disable (native GitHub
+#     repos). Also runs daily at 09:00 UTC (cron) so future-dated posts
+#     publish automatically when their date arrives. Toggle with gh-ci-enable / gh-ci-disable (native GitHub
 #     workflow state — act ignores it, local runs always work). Hosted
 #     runs use the PUBLISH_TOKEN repo secret (fine-grained PAT, Contents
 #     read/write on smit-io/docs + smit-io/hextra + smit-io.github.io).

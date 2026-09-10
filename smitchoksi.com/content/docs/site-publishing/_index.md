@@ -24,9 +24,31 @@ The same workflow (`.github/workflows/publish.yml`) runs two ways:
 | Mode | Trigger | Cost |
 |---|---|---|
 | Local CI | `make local-ci-run` (via [act][act], Docker) | Free, uses your `gh` CLI token |
-| GitHub CI | Push to `main`, or `make gh-ci-run` | Free on public repos |
+| GitHub CI | Push to `main`, daily cron (09:00 UTC), or `make gh-ci-run` | Free on public repos |
 
 Both are always available — enabling hosted CI does not disable the local path.
+
+## Scheduled publishing
+
+Hugo skips posts whose `date` is in the future when building for production, while
+the drafts build (`make build-drafts`, `-F` flag) includes them. Combined with the
+daily cron trigger on the hosted workflow, front matter alone controls a post's
+lifecycle:
+
+| Front matter | State | Visible in |
+|---|---|---|
+| `draft: true` | Draft | Drafts build only |
+| `draft: false`, future `date` | Scheduled | Drafts build only |
+| `draft: false`, past `date` | Live | Everywhere |
+
+To schedule a post: set `draft: false` and give it the intended publish date
+(e.g. `date: 2026-09-15T09:00:00Z`). It goes live on the first build after that
+moment — the next morning's cron run, or any push to `main` in between. No flag
+flipping, no extra workflow: the cron run is an ordinary rebuild of `main`.
+
+GitHub cron caveats: schedules run in **UTC**, may start up to ~15 minutes late,
+and GitHub auto-disables them after 60 days without repo activity (re-enable with
+`make gh-ci-enable`).
 
 ## Hosted CI setup
 

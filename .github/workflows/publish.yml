@@ -3,6 +3,12 @@ name: publish
 on:
   push:
     branches: [main]
+  # Daily rebuild so future-dated posts go live once their date arrives
+  # (Hugo skips date > now in production builds; the drafts build shows them).
+  # GitHub cron caveats: UTC only, up to ~15 min start jitter, and GitHub
+  # auto-disables the schedule after 60 days without repo activity.
+  schedule:
+    - cron: '0 9 * * *'
   workflow_dispatch:
 
 jobs:
